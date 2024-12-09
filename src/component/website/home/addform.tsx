@@ -15,7 +15,7 @@ const AddForm = () => {
     StatusCode: "100", // Mã trạng thái mặc định là 100
   });
 
-  // Hàm cập nhật giá trị khi người dùng nhập vào các input
+  //  cập nhật giá trị khi người dùng nhập vào các input
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -24,7 +24,7 @@ const AddForm = () => {
     }));
   };
 
-  // Hàm cập nhật giá trị khi người dùng chọn trạng thái trong Dropdown
+  //  cập nhật giá trị khi người dùng chọn trạng thái trong Dropdown
   const handleDropdownChange = (
     event: React.SyntheticEvent,
     data: { value: string }
@@ -34,7 +34,7 @@ const AddForm = () => {
     // Cập nhật Status và StatusCode dựa trên giá trị của Status
     let newStatusCode = "100"; // Mặc định StatusCode là 100
     if (newStatus === "Hoàn thành") {
-      newStatusCode = "200"; // Nếu chọn "Hoàn thành" thì StatusCode = 200
+      newStatusCode = "200";
     }
 
     setFormData((prevData) => ({
@@ -44,7 +44,7 @@ const AddForm = () => {
     }));
   };
 
-  // Hàm xử lý submit
+  //  xử lý submit
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault(); // Ngừng hành động mặc định của form
     console.log("Form data:", formData); // Log giá trị của form
@@ -63,7 +63,7 @@ const AddForm = () => {
           showSuccessIndicator={false}
           name="Title" // Đặt name để dùng trong handleChange
           value={formData.Title} // Giá trị của input
-          onChange={handleChange} // Khi người dùng nhập vào, sẽ gọi handleChange
+          onChange={handleChange}
         />
 
         {/* Dropdown Trạng Thái */}
@@ -75,7 +75,7 @@ const AddForm = () => {
           placeholder="Chọn trạng thái"
           name="Status" // Đặt name để dùng trong handleDropdownChange
           value={formData.Status} // Giá trị của dropdown
-          onChange={handleDropdownChange} // Khi người dùng chọn, sẽ gọi handleDropdownChange
+          onChange={handleDropdownChange}
         />
 
         {/* Nút Tạo Đề Xuất */}
