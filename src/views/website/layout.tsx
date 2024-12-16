@@ -1,7 +1,7 @@
-import Sidebar from "./__component/sidebar/sidebar";
-import HomePage from "./home/home";
-import HeaderWebsite from "./__component/header/header";
-import "./layout.css";
+import Sidebar from "@views/website/sidebar/sidebar";
+import HomePage from "@views/website/home/home";
+import HeaderWebsite from "@views/website/header/header";
+import "@css/website/layout.css";
 
 const LayoutWebsite = () => {
   return (

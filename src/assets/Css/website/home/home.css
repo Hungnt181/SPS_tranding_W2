@@ -13,11 +13,36 @@
     border-bottom: 1px solid #e6e4e4;
     margin-left: 4px;
 }
+
+.toolBar > button > span {
+    width: 75px;
+    margin-right: 12px;
+}
+
+.toolBar > button > .ui-box {
+    margin-left: 12px;
+    margin-right: 6px;
+}
+
+.toolBar:last-child {
+    margin-right: 0;
+}
+
+.toolBar--leftItem {
+    display: flex;
+    align-items: center;
+
+}
+
 .toolBar_left {
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    max-width: 400px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .toolBar_left_icon{
@@ -42,7 +67,16 @@
 
 .toolBar_left_Text {
     height: 60px;
+    max-width: 600px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
+.toolBar_left_Text  li {
+    min-width: 75px;
+}
+
+
 .ui-menu__itemcontent {
     height: 60px;
     line-height: 60px !important;
@@ -107,7 +141,7 @@
     margin-right: 0px;
 }
 .ui-button {
-    width:121px;
+    /* width:121px; */
     height: 32px;
     padding: 0  !important;
     background-color: #585A96;
@@ -138,12 +172,32 @@
     display: flex;
 }
 
-.__right_Item {
-    /* width: 52px; */
-    margin-right: 10px;
-    display: flex;
+.subToolBar_left{
+    max-width:  600px;     /* Đặt độ rộng tối đa cho text */
+    white-space: nowrap;    /* Không cho text xuống dòng */
+    overflow: hidden;       /* Ẩn phần text tràn */
+    text-overflow: ellipsis;
 }
 
+.__right_Item {
+    min-width: 52px;
+    margin-right: 10px;
+    display: flex;
+    flex-shrink: 0; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+}
+
+.btn_delete .ui-button {
+    min-width: 35px;
+    margin-right: 0;
+}
+
+.subToolBar--icon {
+    display: flex;
+    align-items: center;
+}
 
 .__right_Item span {
     font-size: 14px;
@@ -152,6 +206,7 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+    font-weight: 400;
 }
 
 .__right_Item span .ui-button__content {
@@ -162,7 +217,7 @@
 }
 
 .btn_delete {
-    width: 26px;
+    /* width: 100% */
 }
 
 
@@ -368,12 +423,16 @@ padding-left: 5px;
     align-items: center;
     justify-content: space-between;
 }
+.paginationBtn > button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
 
 .__table_titlePriorty {
     width: 500px;
     display: flex;
     align-items: center;
-    /* justify-content: space-between; */
     flex: 1;
 }
    
@@ -484,4 +543,17 @@ padding-left: 5px;
     position: absolute;
     top: 10%;
     left: 25%;
+}
+
+.modal_content> button{ 
+    display: block;
+    position: absolute;
+    top: 23px;
+    right: 3px;
+    min-width: 28px;
+    height: 28px;
+}
+
+.modal_content> button .ui-icon{
+    padding-left: 0px !important;
 }

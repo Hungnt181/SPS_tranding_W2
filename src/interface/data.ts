@@ -4,7 +4,7 @@ export type Author = {
     LookupValue: string;
  }
 
-export type DepartmentOrganization = {
+export type Lookup = {
     LookupId: number;
     LookupValue: string;
 }
@@ -12,13 +12,13 @@ export type DepartmentOrganization = {
 export type  DataItem = {
     Status: string;
     StatusCode: number;
-    DepartmentOrganization: DepartmentOrganization;
+    DepartmentOrganization: Lookup;
     Priority: number;
-    ID: string;
+    ID: number;
     Title: string;
     Created: Date; 
     Author: Author;
-  }
+}
 
-  export type DataItemInput = Omit<DataItem, "ID">
+export type DataItemInput = Omit<DataItem, "ID">
   

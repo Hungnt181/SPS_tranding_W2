@@ -1,14 +1,208 @@
 {
-  "products": [
+  "data": [
     {
-      "id": "9454",
-      "Title": "aeffgrwgreg",
-      "Status": ""
+      "Status": "Đang thực hiện",
+      "StatusCode": 100,
+      "DepartmentOrganization": {
+        "LookupId": 256,
+        "LookupValue": "KA-QTHT"
+      },
+      "Priority": 10,
+      "ID": 1,
+      "Title": "Tạo báo cáo quý I",
+      "Created": "2024-06-01T08:00:00Z",
+      "Author": {
+        "Email": "nguyenvana@example.com",
+        "LookupId": 101,
+        "LookupValue": "Nguyễn Văn A"
+      }
     },
     {
-      "id": "9e7f",
-      "Title": "aeffgrwgreg",
-      "Status": ""
+      "Status": "Hoàn thành",
+      "StatusCode": 200,
+      "DepartmentOrganization": {
+        "LookupId": 257,
+        "LookupValue": "BA-QTHT"
+      },
+      "Priority": 1,
+      "ID": 2,
+      "Title": "Đề xuất triển khai dự án X",
+      "Created": "2024-06-02T09:30:00Z",
+      "Author": {
+        "Email": "tranthib@example.com",
+        "LookupId": 102,
+        "LookupValue": "Trần Thị B"
+      }
+    },
+    {
+      "Status": "Đang thực hiện",
+      "StatusCode": 100,
+      "DepartmentOrganization": {
+        "LookupId": 258,
+        "LookupValue": "CA-QTHT"
+      },
+      "Priority": 1,
+      "ID": 3,
+      "Title": "Kiểm tra tiến độ công việc Y",
+      "Created": "2024-06-03T10:45:00Z",
+      "Author": {
+        "Email": "lehongc@example.com",
+        "LookupId": 103,
+        "LookupValue": "Lê Hồng C"
+      }
+    },
+    {
+      "Status": "Hoàn thành",
+      "StatusCode": 200,
+      "DepartmentOrganization": {
+        "LookupId": 259,
+        "LookupValue": "MA-QTHT"
+      },
+      "Priority": 10,
+      "ID": 4,
+      "Title": "Báo cáo tài chính năm",
+      "Created": "2024-06-04T14:00:00Z",
+      "Author": {
+        "Email": "phamthid@example.com",
+        "LookupId": 104,
+        "LookupValue": "Phạm Thị D"
+      }
+    },
+    {
+      "Status": "Đang thực hiện",
+      "StatusCode": 100,
+      "DepartmentOrganization": {
+        "LookupId": 260,
+        "LookupValue": "QA-QTHT"
+      },
+      "Priority": 20,
+      "ID": 5,
+      "Title": "Hoàn thiện hồ sơ phát triển sản phẩm",
+      "Created": "2024-06-05T11:00:00Z",
+      "Author": {
+        "Email": "nguyenthie@example.com",
+        "LookupId": 105,
+        "LookupValue": "Nguyễn Thiệu E"
+      }
+    },
+    {
+      "Status": "Hoàn thành",
+      "StatusCode": 200,
+      "DepartmentOrganization": {
+        "LookupId": 261,
+        "LookupValue": "HA-QTHT"
+      },
+      "Priority": 30,
+      "ID": 6,
+      "Title": "Rà soát hệ thống an ninh",
+      "Created": "2024-06-06T15:30:00Z",
+      "Author": {
+        "Email": "tranthif@example.com",
+        "LookupId": 106,
+        "LookupValue": "Trần Thị F"
+      }
+    },
+    {
+      "Status": "Đang thực hiện",
+      "StatusCode": 100,
+      "DepartmentOrganization": {
+        "LookupId": 262,
+        "LookupValue": "NA-QTHT"
+      },
+      "Priority": 20,
+      "ID": 7,
+      "Title": "Xây dựng chiến lược kinh doanh",
+      "Created": "2024-06-07T09:00:00Z",
+      "Author": {
+        "Email": "nguyenhoa@example.com",
+        "LookupId": 107,
+        "LookupValue": "Nguyễn Hòa G"
+      }
+    },
+    {
+      "Status": "Hoàn thành",
+      "StatusCode": 200,
+      "DepartmentOrganization": {
+        "LookupId": 263,
+        "LookupValue": "SA-QTHT"
+      },
+      "Priority": 10,
+      "ID": 8,
+      "Title": "Thực hiện kế hoạch tuyển dụng",
+      "Created": "2024-06-08T10:15:00Z",
+      "Author": {
+        "Email": "phamlongh@example.com",
+        "LookupId": 108,
+        "LookupValue": "Phạm Long H"
+      }
+    },
+    {
+      "Status": "Đang thực hiện",
+      "StatusCode": 100,
+      "DepartmentOrganization": {
+        "LookupId": 264,
+        "LookupValue": "LA-QTHT"
+      },
+      "Priority": 30,
+      "ID": 9,
+      "Title": "Đánh giá kế hoạch quý",
+      "Created": "2024-06-09T16:00:00Z",
+      "Author": {
+        "Email": "trantank@example.com",
+        "LookupId": 109,
+        "LookupValue": "Trần Tân K"
+      }
+    },
+    {
+      "Status": "Hoàn thành",
+      "StatusCode": 200,
+      "DepartmentOrganization": {
+        "LookupId": 265,
+        "LookupValue": "FA-QTHT"
+      },
+      "Priority": 1,
+      "ID": 10,
+      "Title": "Bàn giao dự án Z",
+      "Created": "2024-06-10T12:00:00Z",
+      "Author": {
+        "Email": "nguyenminhl@example.com",
+        "LookupId": 110,
+        "LookupValue": "Nguyễn Minh L"
+      }
+    },
+    {
+      "id": "7afb",
+      "Title": "hungnt",
+      "Status": "Đang thực hiện",
+      "StatusCode": 100,
+      "Priority": 1,
+      "DepartmentOrganization": {
+        "LookupId": 257,
+        "LookupValue": "BA-QTHT"
+      },
+      "Author": {
+        "Email": "hungnt@gmail.com",
+        "LookupId": 304,
+        "LookupValue": "User 4"
+      },
+      "Created": "2024-12-16T08:20:39.579Z"
+    },
+    {
+      "id": "e1c6",
+      "Title": "test",
+      "Status": "Đang thực hiện",
+      "StatusCode": 100,
+      "Priority": 10,
+      "DepartmentOrganization": {
+        "LookupId": 256,
+        "LookupValue": "KA-QTHT"
+      },
+      "Author": {
+        "Email": "hungnt@gmail.com",
+        "LookupId": 301,
+        "LookupValue": "User One"
+      },
+      "Created": "2024-12-16T08:41:29.770Z"
     }
   ]
 }

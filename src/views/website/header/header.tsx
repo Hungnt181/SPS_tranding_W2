@@ -1,5 +1,5 @@
 import { Search16Filled } from "@fluentui/react-icons";
-import "./header.css";
+import "@css/website/header/header.css";
 import { Input } from "@fluentui/react-northstar";
 import { useState } from "react";
 

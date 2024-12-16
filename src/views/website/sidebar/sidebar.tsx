@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import "./sidebar.css";
+import "@css/website/sidebar/sidebar.css";
 import {
   Add16Regular,
   Alert24Filled,
@@ -21,6 +21,7 @@ import {
   TriangleEndIcon,
 } from "@fluentui/react-northstar";
 import { useEffect, useState } from "react";
+import { sidebarMenuItem } from "@interface/sidebarMenuItem";
 
 const Sidebar = () => {
   const [activeItem, setActiveItem] = useState("bgct");
@@ -45,7 +46,6 @@ const Sidebar = () => {
 
   useEffect(() => {
     setSelectedMenuId("tree-title-customization-item-1-1"); // Chọn mục "Tất cả" trong "Chứng từ"
-    // setExpandedItems(["tree-title-customization-item-1"]); // Mở rộng menu "Chứng từ"
   }, []);
   ///Tree menu
   const items = [
@@ -161,80 +161,58 @@ const Sidebar = () => {
       </Component>
     );
   };
+
+  // Xây dựng lại phần menu
+  const sidebarMenuItem: sidebarMenuItem[] = [
+    {
+      icon: [<Alert24Filled />, <Alert24Regular />],
+      title: "Thông báo",
+      className: "sidebarMenu_item",
+      key: "notification",
+    },
+    {
+      icon: [<Poll24Filled />, <Poll24Regular />],
+      title: "Dashboard",
+      className: "sidebarMenu_item",
+      key: "dashboard",
+    },
+    {
+      icon: [<ApprovalsApp24Filled />, <ApprovalsApp24Regular />],
+      title: "Quy trình",
+      className: "sidebarMenu_item",
+      key: "process",
+    },
+    {
+      icon: [<DocumentFolder24Filled />, <DocumentFolder24Regular />],
+      title: "BGCT",
+      className: "sidebarMenu_item",
+      key: "bgct",
+    },
+  ];
+
+  // render dữ liệu sidebarMenu
+
+  const sidebarMenu = () => {
+    return sidebarMenuItem.map((item) => (
+      <div
+        className={
+          activeItem === item.key ? "sidebarMenu_itemCss" : item.className
+        }
+        onClick={() => changeCSS(item.key)}
+      >
+        <div className="sidebarMenu_icon">
+          {activeItem === item.key ? item.icon[0] : item.icon[1]}
+        </div>
+        <p className="sidebarMenu_text">{item.title}</p>
+      </div>
+    ));
+  };
+
   return (
     <div className="sidebar">
       <div className="sidebarMenu">
         <div className="sidebarMenu_top">
-          <div
-            className={
-              activeItem === "notification"
-                ? "sidebarMenu_itemCss"
-                : "sidebarMenu_item"
-            }
-            onClick={() => changeCSS("notification")}
-          >
-            <div className="sidebarMenu_icon">
-              {activeItem === "notification" ? (
-                <Alert24Filled />
-              ) : (
-                <Alert24Regular />
-              )}
-            </div>
-            <p className="sidebarMenu_text">Thông báo</p>
-          </div>
-
-          <div
-            className={
-              activeItem === "dashboard"
-                ? "sidebarMenu_itemCss"
-                : "sidebarMenu_item"
-            }
-            onClick={() => changeCSS("dashboard")}
-          >
-            <div className="sidebarMenu_icon">
-              {activeItem === "dashboard" ? (
-                <Poll24Filled />
-              ) : (
-                <Poll24Regular />
-              )}
-            </div>
-            <p className="sidebarMenu_text">Dashboard</p>
-          </div>
-
-          <div
-            className={
-              activeItem === "process"
-                ? "sidebarMenu_itemCss"
-                : "sidebarMenu_item"
-            }
-            onClick={() => changeCSS("process")}
-          >
-            <div className="sidebarMenu_icon">
-              {activeItem === "process" ? (
-                <ApprovalsApp24Filled />
-              ) : (
-                <ApprovalsApp24Regular />
-              )}
-            </div>
-            <p className="sidebarMenu_text">Quy trình</p>
-          </div>
-
-          <div
-            className={
-              activeItem === "bgct" ? "sidebarMenu_itemCss" : "sidebarMenu_item"
-            }
-            onClick={() => changeCSS("bgct")}
-          >
-            <div className="sidebarMenu_icon">
-              {activeItem === "bgct" ? (
-                <DocumentFolder24Filled />
-              ) : (
-                <DocumentFolder24Regular />
-              )}
-            </div>
-            <p className="sidebarMenu_text">BGCT</p>
-          </div>
-
+          {sidebarMenu()}
           <div className="sidebarMenu_item">
             <div className="sidebarMenu_icon">
               <MoreHorizontal24Filled />
@@ -255,6 +233,7 @@ const Sidebar = () => {
         </div>
       </div>
 
+      {/* SidebarTreeMune */}
       <div className="sidebarTreeMenu">
         <div className="sidebarTreeMenu_header">
           <h2>BGCT</h2>
@@ -270,12 +249,10 @@ const Sidebar = () => {
         <div className="sidebarTreeMenu_content">
           {/* div_content */}
           <Tree
-            // style={{ position: "relative" }}
             aria-label="Custom title"
             items={items}
             renderItemTitle={titleRenderer}
           />
-          {/* {TreeExampleWithBadges()} */}
         </div>
       </div>
     </div>
