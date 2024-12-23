@@ -14,7 +14,7 @@ export type  DataItem = {
     StatusCode: number;
     DepartmentOrganization: Lookup;
     Priority: number;
-    ID: number;
+    id: number;
     Title: string;
     Created: Date; 
     Author: Author;

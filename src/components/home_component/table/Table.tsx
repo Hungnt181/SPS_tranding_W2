@@ -6,8 +6,15 @@ import { useEffect, useState } from "react";
 interface TableComponent {
   currentItems: any;
   data: any;
+  UpdateData: any;
+  handleSelectionChange: any;
 }
-const TableComponent: React.FC<TableComponent> = ({ currentItems, data }) => {
+const TableComponent: React.FC<TableComponent> = ({
+  currentItems,
+  data,
+  UpdateData,
+  handleSelectionChange,
+}) => {
   // const resultName = "";
   const avatarClassName = [
     "bg1",
@@ -42,28 +49,41 @@ const TableComponent: React.FC<TableComponent> = ({ currentItems, data }) => {
     return "priorityThirty";
   };
 
+  // Check Box
   const [allChecked, setAllChecked] = useState(false);
   const [checkedRows, setCheckedRows] = useState<{ [key: string]: boolean }>(
     {}
   );
+
+  // removeItem
+
+  useEffect(() => {
+    const selectedIds = Object.keys(checkedRows)
+      .filter((id) => checkedRows[id])
+      .map(Number); // Chuyển key từ string sang number (nếu cần)
+    handleSelectionChange(selectedIds);
+  }, [checkedRows]); // Đồng bộ mỗi khi checkedRows thay đổi
 
   const toggleAllCheckboxes = () => {
     const newCheckedState = !allChecked;
     setAllChecked(newCheckedState);
 
     const newCheckedRows = data.reduce((acc: any, _: any, index: number) => {
-      acc[index + 1] = newCheckedState;
+      acc[index] = newCheckedState;
       return acc;
     }, {} as { [key: string]: boolean });
 
     setCheckedRows(newCheckedRows);
+
+    // handleSelectionChange(getCheckedIds);
   };
 
-  const toggleRowCheckbox = (index: string) => {
+  const toggleRowCheckbox = (index: any) => {
     setCheckedRows((prev) => ({
       ...prev,
       [index]: !prev[index],
     }));
+    // handleSelectionChange(getCheckedIds);
   };
 
   // FormatTime
@@ -82,7 +102,7 @@ const TableComponent: React.FC<TableComponent> = ({ currentItems, data }) => {
       {
         content: (
           <div className="columsOne_title">
-            <Checkbox checked={allChecked} onChange={toggleAllCheckboxes} />{" "}
+            <Checkbox checked={allChecked} onChange={toggleAllCheckboxes} />
             <span>Tiêu đề</span>
           </div>
         ),
@@ -97,17 +117,25 @@ const TableComponent: React.FC<TableComponent> = ({ currentItems, data }) => {
     ],
   };
   const rows = currentItems.map((item: DataItem, index: number) => ({
-    key: index,
+    key: item.id,
     items: [
       {
         content: (
           <div className="columsOne" id="columsTitle">
             <div className="checkBox_title">
               <Checkbox
-                checked={checkedRows[item.ID] || false}
-                onChange={() => toggleRowCheckbox(item.ID)}
+                checked={checkedRows[index] || false}
+                onChange={() => toggleRowCheckbox(index)}
               />
-              <span title={item.Title}>{item.Title}</span>
+              <span
+                style={{ cursor: "pointer" }}
+                title={item.Title}
+                onClick={() => {
+                  UpdateData(item.id);
+                }}
+              >
+                {item.Title}
+              </span>
             </div>
 
             <div
@@ -118,7 +146,7 @@ const TableComponent: React.FC<TableComponent> = ({ currentItems, data }) => {
             </div>
           </div>
         ),
-        key: `${item.ID}`,
+        key: index,
       },
       {
         content: (

@@ -18,6 +18,12 @@
 }
 .addform_content .ui-form {
     justify-content: flex-start;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.addform_content .ui-form label {
+    font-weight: 600;
 }
 
 .addform_content .ui-radiogroup__item__indicator {
@@ -31,6 +37,7 @@
 .addform_content .ui-radiogroup, label{
     margin-bottom: 2px !important;
 }
+
 
 
 

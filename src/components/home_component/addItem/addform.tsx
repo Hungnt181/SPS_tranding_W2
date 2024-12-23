@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "@css/website/addItem/addform.css";
 import {
-  Dropdown,
   Form,
   FormButton,
   FormDropdown,
@@ -9,9 +8,11 @@ import {
   RadioGroup,
 } from "@fluentui/react-northstar";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
-const AddForm = () => {
+
+const AddForm = ({ formMode, initialData, id }) => {
   // Khởi tạo state để lưu giá trị các trường trong form
+  console.log(id);
+
   const [formData, setFormData] = useState({
     Title: "",
     Status: "Đang thực hiện", // Giá trị mặc định
@@ -29,6 +30,16 @@ const AddForm = () => {
       LookupValue: "User One",
     },
   });
+
+  // Cập nhật formData khi initialData thay đổi
+  useEffect(() => {
+    if (initialData) {
+      setFormData((prevData) => ({
+        ...prevData,
+        ...initialData,
+      }));
+    }
+  }, [initialData]);
 
   //  cập nhật giá trị khi người dùng nhập vào các input
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,7 +111,21 @@ const AddForm = () => {
   //
 
   const addItem = async (formData: any) => {
-    const response = await axios.post(`http://localhost:3000/data`, formData);
+    try {
+      await axios.post(`http://localhost:3000/data`, formData);
+      window.location.reload();
+    } catch (error) {
+      console.error("Error adding item:", error);
+      alert("Error adding item");
+    }
+  };
+
+  const updateItem = async (formData: any, id: number) => {
+    const response = await axios.put(
+      `http://localhost:3000/data/${id}`,
+      formData
+    );
+    window.location.reload();
   };
   //  xử lý submit
   const handleSubmit = (e: React.FormEvent) => {
@@ -110,8 +135,13 @@ const AddForm = () => {
       Created: new Date().toISOString(),
     };
     console.log("Form data:", updatedFormData); // Log giá trị của form
-    addItem(updatedFormData);
-    alert("Form Submitted");
+    if (initialData) {
+      updateItem(updatedFormData, id);
+      alert("Updated form Data successfully");
+    } else {
+      addItem(updatedFormData);
+      alert("Created form Data successfully");
+    }
   };
 
   // status array
@@ -212,7 +242,7 @@ const AddForm = () => {
 
   return (
     <div className="addform_content">
-      <h2>Tạo đề xuất</h2>
+      <h2>{formMode === "create" ? "Tạo mới bản ghi" : "Cập nhật bản ghi"}</h2>
       <Form onSubmit={handleSubmit}>
         {/* Input Tiêu Đề */}
         <FormInput
@@ -227,7 +257,8 @@ const AddForm = () => {
         {/* Radio status */}
         <label htmlFor="">Trạng thái</label>
         <RadioGroup
-          defaultCheckedValue={formData.StatusCode}
+          // defaultCheckedValue={formData.StatusCode}
+          checkedValue={formData.StatusCode}
           items={statusItem}
           onCheckedValueChange={handleChangeRadioStatus}
           vertical
@@ -235,7 +266,8 @@ const AddForm = () => {
         {/* Radio Prioryti */}
         <label htmlFor="">Mức độ khẩn cấp</label>
         <RadioGroup
-          defaultCheckedValue={formData.Priority}
+          // defaultCheckedValue={formData.Priority}
+          checkedValue={formData.Priority}
           items={priorityItem}
           onCheckedValueChange={handleChangeRadioProprity}
           vertical
@@ -276,7 +308,9 @@ const AddForm = () => {
           onChange={handleChange}
         />
         {/* Nút Tạo Đề Xuất */}
-        <FormButton content="Tạo đề xuất" />
+        <FormButton
+          content={formMode === "create" ? "Tạo đề xuất" : "Lưu cập nhật"}
+        />
       </Form>
     </div>
   );

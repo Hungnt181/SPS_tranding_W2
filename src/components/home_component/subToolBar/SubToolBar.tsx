@@ -2,9 +2,17 @@ import {
   CheckmarkCircle16Regular,
   Delete16Regular,
 } from "@fluentui/react-icons";
-import { Button, Input, SearchIcon } from "@fluentui/react-northstar";
+import {
+  Button,
+  FilterIcon,
+  Input,
+  SearchIcon,
+} from "@fluentui/react-northstar";
 
-const SubToolBar = () => {
+interface SubToolBar {
+  handleDelete: () => void;
+}
+const SubToolBar: React.FC<SubToolBar> = ({ handleDelete }) => {
   const subToolBarItem_Left = [
     {
       title: "Xóa",
@@ -21,7 +29,7 @@ const SubToolBar = () => {
   const subToolBarItem_Right = [
     {
       title: "Lọc",
-      icon: <Delete16Regular />,
+      icon: <FilterIcon />,
       key: "Lọc",
     },
   ];
@@ -41,7 +49,12 @@ const SubToolBar = () => {
           <div className="__right_Item">
             <div className="subToolBar--icon">{item.icon}</div>
             <div className="btn_delete">
-              <Button content={item.title} loader="Xóa" text />
+              <Button
+                content={item.title}
+                loader="Xóa"
+                text
+                onClick={handleDelete}
+              />
             </div>
           </div>
         ))}
