@@ -22,21 +22,30 @@ import {
 } from "@fluentui/react-northstar";
 import { useEffect, useState } from "react";
 import { sidebarMenuItem } from "@interface/sidebarMenuItem";
+import { useHistory } from "react-router-dom";
 
 const Sidebar = () => {
+  const history = useHistory();
   const [activeItem, setActiveItem] = useState("bgct");
 
   // Hàm thay đổi className của item khi click vào icon
   const changeCSS = (item: any) => {
-    setActiveItem(activeItem === item ? null : item);
+    setActiveItem(item);
   };
 
   const [selectedMenuId, setSelectedMenuId] = useState<string | null>(null);
   // const [expandedItems, setExpandedItems] = useState<string[]>([]);
 
-  const toggleMenu = (id: string) => {
-    console.log(id);
-    setSelectedMenuId((prevId) => (prevId === id ? null : id));
+  const toggleMenu = (id: string, url: string) => {
+    // console.log(id);
+    // setSelectedMenuId((prevId) => (prevId === id ? null : id));
+    setSelectedMenuId(id);
+    if (url) {
+      // console.log(url); // Log ra URL chính xác
+      history.push(url); // Điều hướng đến URL được truyền vào
+    } else {
+      console.log("No URL provided");
+    }
   };
 
   const idMenu1 = [
@@ -61,6 +70,7 @@ const Sidebar = () => {
           title: {
             content: "Tất cả",
             badgeContent: 0,
+            url: "/",
           },
         },
         {
@@ -69,6 +79,7 @@ const Sidebar = () => {
           title: {
             content: "Chờ bàn giao",
             badgeContent: 2,
+            url: "/",
           },
         },
         {
@@ -77,6 +88,7 @@ const Sidebar = () => {
           title: {
             content: "Đang bàn giao",
             badgeContent: 0,
+            url: "/",
           },
         },
         {
@@ -85,6 +97,7 @@ const Sidebar = () => {
           title: {
             content: "Đã bàn giao",
             badgeContent: 0,
+            url: "/",
           },
         },
         {
@@ -93,6 +106,7 @@ const Sidebar = () => {
           title: {
             content: "Lưu kho",
             badgeContent: 0,
+            url: "/",
           },
         },
       ],
@@ -105,37 +119,52 @@ const Sidebar = () => {
         {
           id: "tree-title-customization-item-2-1",
           className: "Menu2",
-          title: { content: "Tất cả", badgeContent: 0 },
+          url: "/",
+          title: { content: "Tất cả", badgeContent: 0, url: "/" },
         },
         {
           id: "tree-title-customization-item-2-2",
           className: "Menu2",
-          title: { content: "Chờ xử lý", badgeContent: 2 },
+          title: { content: "Chờ xử lý", badgeContent: 2, url: "/waiting" },
         },
         {
           id: "tree-title-customization-item-2-3",
           className: "Menu2",
-          title: { content: "Đã xử lý", badgeContent: 0 },
+          title: { content: "Đã xử lý", badgeContent: 0, url: "/done" },
         },
       ],
     },
   ];
 
   const titleRenderer = (
-    Component,
-    { content, expanded, open, hasSubtree, badgeContent, ...restProps }
+    Component: any,
+    { content, expanded, open, hasSubtree, badgeContent, ...restProps }: any
   ) => {
     // console.log({
     //   data: { content, expanded, open, hasSubtree, ...restProps },
     // });
+
+    // console.log(restProps);
+
     const isSelected = selectedMenuId === restProps.id;
+    const url = restProps?.url || "";
+    const handleClickUrl = () => {
+      if (url) {
+        // console.log(url); // Log ra URL chính xác
+        history.push(url); // Điều hướng đến URL được truyền vào
+      } else {
+        console.log("No URL provided");
+      }
+    };
     return (
       <Component expanded={expanded} hasSubtree={hasSubtree} {...restProps}>
         <div
           className="title"
           {...restProps}
           onClick={
-            restProps.level === 2 ? () => toggleMenu(restProps.id) : undefined
+            restProps.level === 2
+              ? () => toggleMenu(restProps.id, restProps.url)
+              : undefined
           }
           style={{
             background: isSelected ? "#fff" : "transparent",

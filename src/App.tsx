@@ -7,6 +7,9 @@ function App() {
       <Router>
         <Switch>
           <Route path="/" component={LayoutWebsite} />
+          <Route path="/all" component={LayoutWebsite} />
+          <Route path="/waiting" component={LayoutWebsite} />
+          <Route path="/done" component={LayoutWebsite} />
         </Switch>
       </Router>
     </>

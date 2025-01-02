@@ -6,37 +6,65 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Button, CloseIcon } from "@fluentui/react-northstar";
 import AddForm from "@components/home_component/addItem/addform";
-
+import { useLocation } from "react-router-dom";
 import ToolBar from "@components/home_component/toolBar/toolBar";
 import SubToolBar from "@components/home_component/subToolBar/SubToolBar";
 import Pagination from "@components/home_component/pagination/Pagination";
 import TableComponent from "@components/home_component/table/Table";
+import Filter from "@components/home_component/Filter/Filter";
 const HomePage = () => {
+  // // Lấy thông tin router hiện tại
+  const location = useLocation();
+
   const [data, setData] = useState<DataItem[]>([]); // Dữ liệu từ API
   const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
   const [itemsPerPage] = useState(4); // Số bản ghi mỗi trang
 
+  // Filter
+  const [filteredData, setFilteredData] = useState(data);
+
+  // Hàm nhận dữ liệu đã lọc từ Filter component
+  const handleFilterChange = (filteredData: any) => {
+    setFilteredData(filteredData); // Cập nhật lại dữ liệu đã lọc
+  };
+
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get(`http://localhost:3000/data`);
+        const { data } = await axios.get(`http://localhost:3000/datas`);
+        // Xet data theo url
+        // console.log(data);
+        // console.log("Current path:", location.pathname);
+        let filteredData = data;
+        if (location.pathname == "/waiting") {
+          filteredData = data.filter(
+            (item: any) => item.Status == "Đang thực hiện"
+          );
+        } else if (location.pathname == "/done") {
+          filteredData = data.filter(
+            (item: any) => item.Status == "Hoàn thành"
+          );
+        }
+        // console.log("Filtered data:", filteredData);
+
         // Sắp xếp dữ liệu theo trường 'created', mới nhất lên đầu
-        const sortedData = data.sort(
+        const sortedData = filteredData.sort(
           (a: any, b: any) =>
             new Date(b.Created).getTime() - new Date(a.Created).getTime()
         );
+
         setData(sortedData); // Cập nhật dữ liệu đã sắp xếp
-        localStorage.setItem("data", JSON.stringify(sortedData));
+        // localStorage.setItem("data", JSON.stringify(sortedData));
       } catch (error) {
         console.log(error);
       }
     })();
-  }, []);
+  }, [location.pathname]);
 
   // // Tính toán dữ liệu hiển thị trên từng trang
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
   // // Tổng số trang
   const totalPages = Math.ceil(data.length / itemsPerPage);
@@ -44,7 +72,14 @@ const HomePage = () => {
   // Form create || edit
   //   //form Taọ đề xuất
   const [isBlock, setIsBlock] = useState(false);
-
+  //   //form filter nâng cao
+  const [isFilter, setIsFilter] = useState(false);
+  const handleFilter = () => {
+    setIsFilter((pre) => !pre);
+  };
+  const CloseFilter = () => {
+    setIsFilter(false);
+  };
   // xác định hàm
   const [formMode, setFormMode] = useState<"create" | "edit" | null>(null); // Xác định hành động
   const [selectedItem, setSelectedItem] = useState<any | null>(null); // Bản ghi cần cập nhật
@@ -58,16 +93,16 @@ const HomePage = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get(`http://localhost:3000/data/${id}`);
+        const { data } = await axios.get(`http://localhost:3000/datas/${id}`);
         setSelectedItem(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.log(error);
       }
     })();
   }, [id]);
   const handleEdit = (id: number) => {
-    console.log(id);
+    // console.log(id);
     setId(id);
     setIsBlock(true);
     setFormMode("edit");
@@ -84,7 +119,7 @@ const HomePage = () => {
   const deleteItems = async (selectedIDs: number[]) => {
     try {
       const deletePromises = selectedIDs.map((id) =>
-        axios.delete(`http://localhost:3000/data/${id}`)
+        axios.delete(`http://localhost:3000/datas/${id}`)
       );
       await Promise.all(deletePromises);
       alert("Deleted items successfully");
@@ -110,10 +145,14 @@ const HomePage = () => {
       <div className="toolBar">
         <ToolBar setIsBlockFunciton={handleCreate} />
       </div>
-
       <div className="contentOutlet_content">
         <div className="subToolBar">
-          <SubToolBar handleDelete={handleDelete} />
+          <SubToolBar
+            handleDelete={handleDelete}
+            handleFilter={handleFilter}
+            data={data}
+            onFilterChange={handleFilterChange}
+          />
         </div>
 
         {/* content */}
@@ -123,6 +162,7 @@ const HomePage = () => {
             data={data}
             UpdateData={handleEdit}
             handleSelectionChange={handleSelectionChange}
+            CloseFilter={CloseFilter}
           />
         </div>
 
@@ -134,7 +174,6 @@ const HomePage = () => {
           setCurrentPage={setCurrentPage}
         />
       </div>
-
       <div
         className="addData_modal"
         style={{ display: isBlock ? "block" : "none" }}
@@ -150,6 +189,14 @@ const HomePage = () => {
             {<AddForm formMode={formMode} initialData={selectedItem} id={id} />}
           </div>
         </div>
+      </div>
+      {/* /*Filter div*/}
+
+      <div
+        className="filterData_form"
+        style={{ display: isFilter ? "block" : "none" }}
+      >
+        {<Filter data={data} onFilterChange={handleFilterChange} />}
       </div>
     </>
   );

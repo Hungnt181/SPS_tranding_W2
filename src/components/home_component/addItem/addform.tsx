@@ -9,9 +9,9 @@ import {
 } from "@fluentui/react-northstar";
 import axios from "axios";
 
-const AddForm = ({ formMode, initialData, id }) => {
+const AddForm = ({ formMode, initialData, id }: any) => {
   // Khởi tạo state để lưu giá trị các trường trong form
-  console.log(id);
+  // console.log(id);
 
   const [formData, setFormData] = useState({
     Title: "",
@@ -27,7 +27,7 @@ const AddForm = ({ formMode, initialData, id }) => {
       // Tác giả
       Email: "",
       LookupId: 301,
-      LookupValue: "User One",
+      LookupValue: "Nguyễn Văn A",
     },
   });
 
@@ -112,7 +112,7 @@ const AddForm = ({ formMode, initialData, id }) => {
 
   const addItem = async (formData: any) => {
     try {
-      await axios.post(`http://localhost:3000/data`, formData);
+      await axios.post(`http://localhost:3000/datas`, formData);
       window.location.reload();
     } catch (error) {
       console.error("Error adding item:", error);
@@ -122,7 +122,7 @@ const AddForm = ({ formMode, initialData, id }) => {
 
   const updateItem = async (formData: any, id: number) => {
     const response = await axios.put(
-      `http://localhost:3000/data/${id}`,
+      `http://localhost:3000/datas/${id}`,
       formData
     );
     window.location.reload();
@@ -215,28 +215,53 @@ const AddForm = ({ formMode, initialData, id }) => {
   const AuthorItem = [
     {
       key: 301,
-      content: "User One",
-      label: "User One ",
+      content: "Nguyễn Văn A",
+      label: "Nguyễn Văn A",
     },
     {
       key: 302,
-      content: "User 2 ",
-      label: "User 2",
+      content: "Trần Thị B",
+      label: "Trần Thị B",
     },
     {
       key: 303,
-      content: "User 3",
-      label: "User 3 ",
+      content: "Lê Hồng C",
+      label: "Lê Hồng C",
     },
     {
       key: 304,
-      content: "User 4",
-      label: "User 4 ",
+      content: "Phạm Thị D",
+      label: "Phạm Thị D",
     },
     {
       key: 305,
-      content: "User 5",
-      label: "User 5 ",
+      content: "Nguyễn Thiệu E",
+      label: "Nguyễn Thiệu E",
+    },
+    {
+      key: 306,
+      content: "Trần Thị F",
+      label: "Trần Thị F",
+    },
+    {
+      key: 307,
+      content: "Nguyễn Hòa G",
+      label: "Nguyễn Hòa G",
+    },
+    {
+      key: 308,
+      content: "Phạm Long H",
+      label: "Phạm Long H",
+    },
+    {
+      key: 309,
+      content: "Trần Tân K",
+      label: "Trần Tân K",
+    },
+    {
+      key: 310,
+      content: "Nguyễn Minh L",
+      label: "Nguyễn Minh L",
     },
   ];
 

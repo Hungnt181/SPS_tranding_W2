@@ -8,12 +8,14 @@ interface TableComponent {
   data: any;
   UpdateData: any;
   handleSelectionChange: any;
+  CloseFilter: any;
 }
 const TableComponent: React.FC<TableComponent> = ({
   currentItems,
   data,
   UpdateData,
   handleSelectionChange,
+  CloseFilter,
 }) => {
   // const resultName = "";
   const avatarClassName = [
